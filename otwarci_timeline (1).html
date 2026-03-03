@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Otwarci na Biznes 2026 – Project Timeline</title>
+
+  <!-- React + ReactDOM from CDN (no build step needed) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel standalone: compiles JSX in the browser at runtime -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+
+  <!-- Google Font for a polished look -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Reset and base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2e 50%, #0a0a1a 100%);
+      min-height: 100vh;
+      color: #e8e8f0;
+      /* Prevent horizontal scroll on small Lark iframes */
+      overflow-x: hidden;
+    }
+    /* Smooth scrolling for anchor links */
+    html { scroll-behavior: smooth; }
+    /* Ensure the React root fills the page */
+    #root { min-height: 100vh; }
+
+    /* Custom scrollbar to match dark theme */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a1a; }
+    ::-webkit-scrollbar-thumb { background: #333355; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- type="text/babel" tells Babel standalone to compile this block -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    /* ─── DATA ──────────────────────────────────────────────────────────── */
+
+    const stages = [
+      {
+        id: 1,
+        label: "Preparation",
+        month: "By 15 Mar",
+        phase: 1,
+        accent: "#4cc9f0",
+        icon: "⚙️",
+        summary: "Lock partners, materials & venues",
+        details: [
+          "Update branding and campaign website",
+          "Create presentations and leaflets for entrepreneurs",
+          "Confirm institutional co-organisers per city",
+          "Book event venues in 4–6 cities",
+          "Obtain TikTok approval on action plan and materials",
+        ],
+        output: "All materials & partners confirmed",
+      },
+      {
+        id: 2,
+        label: "Campaign Launch",
+        month: "15 Mar",
+        phase: 1,
+        accent: "#f72585",
+        icon: "📣",
+        summary: "Go live across all channels",
+        details: [
+          "Launch @OtwarciNaBiznes TikTok & OFF LinkedIn",
+          "Publish press releases — national & local media",
+          "Radio interviews announcing conferences",
+          "Partner channel mailings distributed",
+          "Campaign website registration form goes live",
+        ],
+        output: "Media coverage + registrations begin",
+      },
+      {
+        id: 3,
+        label: "Educational Activities",
+        month: "Mar – Jun/Aug",
+        phase: 1,
+        accent: "#7209b7",
+        icon: "🎓",
+        summary: "Conferences + trainings + lead collection",
+        details: [
+          "4–6 regional conferences (~150 pax each)",
+          "Confirmed: Rzeszów, Katowice, Białystok, Kraków",
+          "Expansion (Scenario B): Gdańsk, Poznań",
+          "20 industry-association partner trainings",
+          "Lead database built with TikTok data-sharing consent",
+        ],
+        output: ">2,000 SME leads · 1,700 trained",
+      },
+      {
+        id: 4,
+        label: "Ambassador Onboarding",
+        month: "Mid-Apr – Jun/Aug",
+        phase: 2,
+        accent: "#ff9f1c",
+        icon: "🤝",
+        summary: "1:1 SME support via ambassador network",
+        details: [
+          "10–15 ambassadors assigned to qualified leads",
+          "5-step flow: Assignment → Kick-off → Audit → Support → Graduation",
+          "14-day 'Otwarci na Biznes Challenge' playbook per SME",
+          "Profile audits, content plans, Shop readiness checks",
+          "Hot leads escalated to TikTok SMB Sales within SLA",
+        ],
+        output: "Active TikTok/Shop users + sales-ready escalations",
+      },
+      {
+        id: 5,
+        label: "TikTok Stars Contest",
+        month: "Jun – Sep",
+        phase: 2,
+        accent: "#06d6a0",
+        icon: "🏆",
+        summary: "Media partnership contest + awards gala",
+        details: [
+          "Media partner: Gazele Pulsu Biznesu or Diamenty Forbesa",
+          "Two categories: TikTok Stars + Rising TikTok Stars",
+          "Hashtag activation: #OtwarciNaBiznes",
+          "Final Awards Gala with VIP presenters",
+          "Media series of winner interviews & success stories",
+        ],
+        output: "National media reach + 3M+ TikTok views",
+      },
+      {
+        id: 6,
+        label: "Wrap-up & Report",
+        month: "Jul / Sep",
+        phase: 2,
+        accent: "#4cc9f0",
+        icon: "📊",
+        summary: "Measure impact, publish findings",
+        details: [
+          "Final report: reach, lead volume, onboarding outcomes",
+          "Case studies: businesses that scaled via TikTok",
+          "Survey: % of participants who increased sales",
+          "Media interviews with contest finalists",
+          "Data shared at TikTok Gala",
+        ],
+        output: "Published report + 5M+ media reach",
+      },
+    ];
+
+    const ambassadorSteps = [
+      {
+        num: 1,
+        title: "Assignment",
+        timing: "Mid-April+",
+        desc: "OFF qualifies each eligible lead and assigns them to a named ambassador, starting in parallel with the conference series — so leads from early events are not left waiting.",
+        color: "#ff9f1c",
+      },
+      {
+        num: 2,
+        title: "Kick-off Call",
+        timing: "Week 1",
+        desc: "A 20–30 minute call to assess the entrepreneur's starting point — profile, offer, sales readiness — and agree on concrete next steps.",
+        color: "#f72585",
+      },
+      {
+        num: 3,
+        title: "Audit + Plan",
+        timing: "Week 1",
+        desc: "Quick profile/content audit followed by a simple 14-day action plan — the 'Otwarci na Biznes Challenge' — tailored to the entrepreneur's business.",
+        color: "#7209b7",
+      },
+      {
+        num: 4,
+        title: "Execution Support",
+        timing: "Weeks 1–2",
+        desc: "Templates, content guidance and light-touch check-ins. Optional co-created content support. If the entrepreneur signals Ads interest, the lead is escalated to TikTok SMB Sales within the agreed SLA.",
+        color: "#4cc9f0",
+      },
+      {
+        num: 5,
+        title: "Graduation",
+        timing: "Week 2",
+        desc: "Summary of outcomes (profile optimised, content plan created, first LIVE/Shop steps completed) and identification of next-step needs. Trackable output for TikTok reporting.",
+        color: "#06d6a0",
+      },
+    ];
+
+    const roleRows = [
+      {
+        area: "Primary purpose",
+        off: "Increase conversion from qualified leads into active TikTok/TikTok Shop users through hands-on onboarding.",
+        ttk: "Convert high-intent leads into commercial outcomes; advise on paid activity and sales enablement.",
+      },
+      {
+        area: "Scope",
+        off: "Organic onboarding: profile optimisation, content planning, basic Shop readiness, templates, guidance.",
+        ttk: "Paid activity / Ads interest, sales consultation, high-intent Shop onboarding requiring direct sales touchpoint.",
+      },
+      {
+        area: "Typical activities",
+        off: "Kick-off call; profile/content audit; 14-day playbook; check-ins; templates; optional co-created content.",
+        ttk: "Commercial calls; paid strategy guidance; eligibility/requirements; advanced Shop onboarding; escalation for sales-critical topics.",
+      },
+      {
+        area: "Outputs",
+        off: "Optimised profile, content plan, onboarding checklist completed, basic readiness achieved; clear next steps.",
+        ttk: "Commercial plan for paid activity; sales follow-up; high-intent onboarding path; pipeline tracking.",
+      },
+      {
+        area: "Engagement trigger",
+        off: "Assigned after initial qualification; default owner for non-commercial onboarding.",
+        ttk: "Triggered when a lead signals readiness for paid activity or requests direct commercial support; escalated by OFF within SLA.",
+      },
+    ];
+
+    const kpis = [
+      { value: ">2,000", label: "SME leads for TikTok Shop", color: "#4cc9f0" },
+      { value: "1,700", label: "Entrepreneurs trained", color: "#f72585" },
+      { value: "4–6", label: "Regional conferences", color: "#7209b7" },
+      { value: "20", label: "Partner trainings", color: "#ff9f1c" },
+      { value: "5M+", label: "Media reach", color: "#06d6a0" },
+      { value: "3M+", label: "TikTok educational views", color: "#4cc9f0" },
+    ];
+
+    /* ─── SUB-COMPONENTS ────────────────────────────────────────────────── */
+
+    function TabButton({ id, active, onClick, children }) {
+      return (
+        <button
+          onClick={() => onClick(id)}
+          style={{
+            padding: "10px 22px",
+            borderRadius: 40,
+            border: active ? "1px solid #4cc9f0" : "1px solid rgba(255,255,255,0.12)",
+            background: active ? "rgba(76,201,240,0.15)" : "transparent",
+            color: active ? "#4cc9f0" : "#8888aa",
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: 0.4,
+            transition: "all 0.2s",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+        >
+          {children}
+        </button>
+      );
+    }
+
+    function StageCard({ stage, isActive, onClick }) {
+      return (
+        <div
+          onClick={onClick}
+          style={{
+            flex: "1 1 140px",
+            minWidth: 130,
+            cursor: "pointer",
+            transition: "transform 0.2s",
+            transform: isActive ? "translateY(-6px)" : "translateY(0)",
+          }}
+        >
+          {/* Icon bubble */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
+            <div
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: "50%",
+                background: isActive ? stage.accent : `${stage.accent}22`,
+                border: `2px solid ${stage.accent}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 20,
+                boxShadow: isActive ? `0 0 20px ${stage.accent}88` : "none",
+                transition: "all 0.2s",
+              }}
+            >
+              {stage.icon}
+            </div>
+          </div>
+
+          {/* Card body */}
+          <div
+            style={{
+              background: isActive
+                ? `linear-gradient(160deg, ${stage.accent}18, rgba(255,255,255,0.04))`
+                : "rgba(255,255,255,0.04)",
+              border: `1px solid ${isActive ? stage.accent : "rgba(255,255,255,0.08)"}`,
+              borderRadius: 14,
+              padding: "14px 12px",
+              boxShadow: isActive ? `0 8px 32px ${stage.accent}22` : "none",
+              transition: "all 0.2s",
+            }}
+          >
+            <div style={{ fontSize: 10, color: stage.accent, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 5 }}>
+              {stage.month}
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#ffffff", marginBottom: 6, lineHeight: 1.3 }}>
+              {stage.label}
+            </div>
+            <div style={{ fontSize: 11, color: "#9999bb", lineHeight: 1.5 }}>
+              {stage.summary}
+            </div>
+
+            {/* Expanded content shown when this card is active */}
+            {isActive && (
+              <div style={{ marginTop: 12, borderTop: `1px solid ${stage.accent}33`, paddingTop: 12 }}>
+                <ul style={{ listStyle: "none" }}>
+                  {stage.details.map((d, i) => (
+                    <li key={i} style={{ fontSize: 11, color: "#ccccee", marginBottom: 5, paddingLeft: 12, position: "relative", lineHeight: 1.5 }}>
+                      <span style={{ position: "absolute", left: 0, color: stage.accent }}>›</span>
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+                <div
+                  style={{
+                    marginTop: 10,
+                    padding: "7px 10px",
+                    background: `${stage.accent}15`,
+                    borderRadius: 7,
+                    fontSize: 11,
+                    color: stage.accent,
+                    fontWeight: 700,
+                  }}
+                >
+                  ✓ {stage.output}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    /* ─── TIMELINE TAB ──────────────────────────────────────────────────── */
+
+    function TimelineTab() {
+      const [activeStage, setActiveStage] = useState(null);
+
+      const toggle = (id) => setActiveStage(prev => prev === id ? null : id);
+
+      return (
+        <div>
+          {/* Phase band labels */}
+          <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+            {[
+              { label: "Phase 1 — Awareness & Lead Generation (Mar → Jun/Aug)", color: "#4cc9f0" },
+              { label: "Phase 2 — Conversion & Adoption (Apr → Sep)", color: "#ff9f1c" },
+            ].map(p => (
+              <div key={p.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 32, height: 3, borderRadius: 2, background: p.color, boxShadow: `0 0 6px ${p.color}` }} />
+                <span style={{ fontSize: 12, color: "#aaaacc" }}>{p.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Stage cards row */}
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            {stages.map(stage => (
+              <StageCard
+                key={stage.id}
+                stage={stage}
+                isActive={activeStage === stage.id}
+                onClick={() => toggle(stage.id)}
+              />
+            ))}
+          </div>
+
+          <p style={{ textAlign: "center", color: "#555577", fontSize: 12, marginTop: 16 }}>
+            Click any stage card to expand key actions and outputs
+          </p>
+
+          {/* Phase overlap callout */}
+          <div
+            style={{
+              marginTop: 24,
+              padding: "14px 20px",
+              background: "rgba(255,159,28,0.08)",
+              border: "1px solid rgba(255,159,28,0.25)",
+              borderRadius: 12,
+              display: "flex",
+              gap: 12,
+              alignItems: "flex-start",
+            }}
+          >
+            <span style={{ fontSize: 18 }}>⚡</span>
+            <div>
+              <div style={{ fontWeight: 700, color: "#ff9f1c", fontSize: 13, marginBottom: 3 }}>
+                Key timing note: Phase overlap from mid-April
+              </div>
+              <div style={{ color: "#aaaacc", fontSize: 12, lineHeight: 1.7 }}>
+                Ambassador onboarding (Phase 2) activates in mid-April — in parallel with the conference series, not after it.
+                Leads from early events (Rzeszów, Katowice) are assigned to ambassadors immediately, accelerating conversion
+                without waiting for the full Phase 1 cycle to complete.
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ─── AMBASSADOR TAB ────────────────────────────────────────────────── */
+
+    function AmbassadorTab() {
+      return (
+        <div>
+          <h2 style={{ textAlign: "center", fontWeight: 800, fontSize: 20, marginBottom: 6, color: "#ffffff" }}>
+            Ambassador Operating Model
+          </h2>
+          <p style={{ textAlign: "center", color: "#8888aa", fontSize: 13, marginBottom: 36 }}>
+            5-step flow: how each SME lead is converted into an active TikTok user
+          </p>
+
+          {/* Steps */}
+          <div style={{ position: "relative" }}>
+            {/* Vertical connector line */}
+            <div
+              style={{
+                position: "absolute",
+                left: 30,
+                top: 36,
+                bottom: 36,
+                width: 2,
+                background: "linear-gradient(180deg, #ff9f1c, #f72585, #7209b7, #4cc9f0, #06d6a0)",
+                opacity: 0.4,
+                borderRadius: 1,
+              }}
+            />
+
+            {ambassadorSteps.map(step => (
+              <div key={step.num} style={{ display: "flex", gap: 20, marginBottom: 16, alignItems: "flex-start" }}>
+                {/* Step bubble */}
+                <div style={{ width: 60, flexShrink: 0, display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: "50%",
+                      background: `${step.color}22`,
+                      border: `2px solid ${step.color}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: 800,
+                      fontSize: 15,
+                      color: step.color,
+                      boxShadow: `0 0 14px ${step.color}44`,
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                  >
+                    {step.num}
+                  </div>
+                </div>
+
+                {/* Content card */}
+                <div
+                  style={{
+                    flex: 1,
+                    background: "rgba(255,255,255,0.04)",
+                    border: `1px solid ${step.color}33`,
+                    borderRadius: 12,
+                    padding: "16px 18px",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
+                    <div style={{ fontWeight: 700, fontSize: 15, color: "#ffffff" }}>{step.title}</div>
+                    <div
+                      style={{
+                        background: `${step.color}18`,
+                        border: `1px solid ${step.color}44`,
+                        borderRadius: 20,
+                        padding: "2px 10px",
+                        fontSize: 11,
+                        color: step.color,
+                        fontWeight: 700,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {step.timing}
+                    </div>
+                  </div>
+                  <p style={{ color: "#aaaacc", fontSize: 12, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Role distinction table */}
+          <div style={{ marginTop: 40 }}>
+            <h3 style={{ fontWeight: 800, fontSize: 16, color: "#ffffff", marginBottom: 6, textAlign: "center" }}>
+              Division of Roles: OFF Ambassadors vs TikTok SMB Sales
+            </h3>
+            <p style={{ textAlign: "center", color: "#8888aa", fontSize: 12, marginBottom: 18 }}>
+              No duplication — clear scope boundaries and defined handover triggers
+            </p>
+
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "separate", borderSpacing: 0, fontSize: 12, minWidth: 500 }}>
+                <thead>
+                  <tr>
+                    {[
+                      { label: "Area", bg: "rgba(255,255,255,0.05)", color: "#8888aa" },
+                      { label: "Ambassadors (OFF-led)", bg: "rgba(76,201,240,0.12)", color: "#4cc9f0" },
+                      { label: "TikTok SMB Sales", bg: "rgba(254,44,85,0.12)", color: "#fe2c55" },
+                    ].map(h => (
+                      <th
+                        key={h.label}
+                        style={{
+                          padding: "10px 14px",
+                          textAlign: "left",
+                          background: h.bg,
+                          borderBottom: `2px solid ${h.color}`,
+                          color: h.color,
+                          fontWeight: 700,
+                          fontSize: 11,
+                          letterSpacing: 0.5,
+                        }}
+                      >
+                        {h.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {roleRows.map((row, i) => (
+                    <tr key={i}>
+                      <td style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent", color: "#8888aa", fontWeight: 700, verticalAlign: "top", lineHeight: 1.6 }}>{row.area}</td>
+                      <td style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent", color: "#ccccee", verticalAlign: "top", lineHeight: 1.6 }}>{row.off}</td>
+                      <td style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent", color: "#ccccee", verticalAlign: "top", lineHeight: 1.6 }}>{row.ttk}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ─── KPI BAR ───────────────────────────────────────────────────────── */
+
+    function KpiBar() {
+      return (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 40 }}>
+          {kpis.map(k => (
+            <div
+              key={k.label}
+              style={{
+                background: `${k.color}10`,
+                border: `1px solid ${k.color}33`,
+                borderRadius: 10,
+                padding: "12px 18px",
+                textAlign: "center",
+                minWidth: 120,
+                flex: "1 1 120px",
+                maxWidth: 160,
+              }}
+            >
+              <div style={{ fontWeight: 800, fontSize: 20, color: k.color, marginBottom: 3 }}>{k.value}</div>
+              <div style={{ fontSize: 10, color: "#8888aa", lineHeight: 1.4 }}>{k.label}</div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    /* ─── ROOT APP ──────────────────────────────────────────────────────── */
+
+    function App() {
+      const [activeTab, setActiveTab] = useState("timeline");
+
+      return (
+        <div style={{ padding: "36px 24px", maxWidth: 1100, margin: "0 auto" }}>
+
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div
+              style={{
+                display: "inline-block",
+                background: "rgba(76,201,240,0.1)",
+                border: "1px solid rgba(76,201,240,0.3)",
+                borderRadius: 24,
+                padding: "5px 18px",
+                fontSize: 11,
+                letterSpacing: 3,
+                textTransform: "uppercase",
+                color: "#4cc9f0",
+                marginBottom: 14,
+              }}
+            >
+              Project Timeline
+            </div>
+            <h1
+              style={{
+                fontSize: "clamp(22px, 4vw, 36px)",
+                fontWeight: 800,
+                margin: "0 0 8px",
+                background: "linear-gradient(135deg, #ffffff 0%, #4cc9f0 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                // Fallback for browsers that don't support background-clip
+                backgroundClip: "text",
+              }}
+            >
+              Otwarci na Biznes 2026
+            </h1>
+            <p style={{ color: "#8888aa", fontSize: 14, margin: 0 }}>
+              March → September 2026 · Two-phase SME education &amp; onboarding programme
+            </p>
+          </div>
+
+          {/* Tab switcher */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 36, flexWrap: "wrap" }}>
+            <TabButton id="timeline" active={activeTab === "timeline"} onClick={setActiveTab}>
+              📅 Project Timeline
+            </TabButton>
+            <TabButton id="ambassador" active={activeTab === "ambassador"} onClick={setActiveTab}>
+              🤝 Ambassador 5-Step Flow
+            </TabButton>
+          </div>
+
+          {/* Tab content */}
+          {activeTab === "timeline" ? <TimelineTab /> : <AmbassadorTab />}
+
+          {/* KPI bar — shown on both tabs */}
+          <KpiBar />
+
+          {/* Footer note */}
+          <p style={{ textAlign: "center", color: "#444466", fontSize: 11, marginTop: 28 }}>
+            Otwarci na Biznes 2026 · Our Future Foundation × TikTok
+          </p>
+        </div>
+      );
+    }
+
+    /* ─── MOUNT ─────────────────────────────────────────────────────────── */
+
+    // React 18 createRoot API
+    const container = document.getElementById("root");
+    const root = ReactDOM.createRoot(container);
+    root.render(<App />);
+  </script>
+</body>
+</html>
